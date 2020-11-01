@@ -29,9 +29,9 @@ object AccountPrefUtils {
         return getString(context, str, null)
     }
 
-    fun getTokenByProvider(context: Context?): String? {
+    fun getTokenByProvider(context: Context?): String {
         val userEntity = getUserEntity(context, null)
-        return userEntity?.mo6986b()
+        return userEntity?.mo6986b() ?: ""
     }
 
     fun getUserEntity(context: Context?, userEntity: UserEntity?): UserEntity? {

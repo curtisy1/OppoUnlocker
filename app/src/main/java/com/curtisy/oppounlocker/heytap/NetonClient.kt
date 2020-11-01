@@ -5,6 +5,7 @@ import android.content.Intent
 import com.curtisy.oppounlocker.heytap.config.NetonConfig
 import com.curtisy.oppounlocker.heytap.manager.ConfigManager
 import com.curtisy.oppounlocker.heytap.manager.DnsManager
+import com.curtisy.oppounlocker.heytap.processor.HeytapProcessor
 import okio.Timeout
 import java.util.concurrent.Flow
 
@@ -25,9 +26,9 @@ class NetonClient private constructor() {
         if (mContext == null) {
             try {
                 mContext = context.applicationContext
-                ConfigManager.getInstance().init(mContext!!)
+                ConfigManager.instance.init(mContext!!)
                 DnsManager.instance.init(mContext!!)
-                sMProcessor = Processor(mContext, netonConfig)
+                sMProcessor = HeytapProcessor(mContext, netonConfig)
             } catch (th: Throwable) {
                 throw Exception(th)
             }
@@ -50,21 +51,13 @@ class NetonClient private constructor() {
     }
 
     companion object {
-        private var client: NetonClient? = null
+        val instance = NetonClient()
         private var sMProcessor: Processor? = null
         val processor: Processor?
             get() {
                 checkInit()
                 return sMProcessor
             }
-
-        fun getInstance() : NetonClient {
-            if(client == null) {
-                client = NetonClient()
-            }
-
-            return client as NetonClient
-        }
 
         private fun checkInit() {
             if (sMProcessor == null) {

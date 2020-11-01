@@ -159,13 +159,13 @@ object AccountHelper {
     }
 
     fun getUserCenterVersionCode(context: Context): Int {
-        val a = m6318a(context, XORUtils.m6334a("kge&`mq|ix&}{mzkmf|mz"))
+        val a = m6318a(context, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))
         return if (a > 0) {
             a
-        } else m6318a(context, XORUtils.m6334a("kge&gxxg&}{mzkmf|mz"))
+        } else m6318a(context, XORUtils.hash("kge&gxxg&}{mzkmf|mz"))
     }
 
     fun getUCServiceVersionCode(context: Context): Int {
-        return m6318a(context, XORUtils.m6334a("kge&gxxg&{mz~akm&ikkg}f|"))
+        return m6318a(context, XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"))
     }
 }

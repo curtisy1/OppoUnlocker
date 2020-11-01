@@ -50,50 +50,50 @@ object UCHeyTapAccountProvider {
     @Deprecated("")
     val PROVIDER_USERCENTER_MODIFY_FULLNAME_XOR8 = "gxxg&}{mkmf|mz&af|mf|&ik|agf&eglanqWn}ddfiem"
     val providerIntfUsercenterOpenContainerActivityXor8: String
-        get() = if (m6320c(BaseApp.f7020a, XORUtils.m6334a("kge&`mq|ix&}{mzkmf|mz"))) {
-            XORUtils.m6334a(PROVIDER_INTF_USERCENTER_HT_CONTAINER_ACTIVITY_XOR8)
-        } else XORUtils.m6334a(PROVIDER_INTF_USERCENTER_CONTAINER_ACTIVITY_XOR8)
+        get() = if (m6320c(BaseApp.f7020a, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))) {
+            XORUtils.hash(PROVIDER_INTF_USERCENTER_HT_CONTAINER_ACTIVITY_XOR8)
+        } else XORUtils.hash(PROVIDER_INTF_USERCENTER_CONTAINER_ACTIVITY_XOR8)
 
     val providerUrlUsercenterOpOpenXor8: String
-        get() = if (m6320c(BaseApp.f7020a, XORUtils.m6334a("kge&`mq|ix&}{mzkmf|mz"))) {
-            XORUtils.m6334a(PROVIDER_URL_USERCENTER_HT_OPEN_XOR8)
-        } else XORUtils.m6334a(PROVIDER_URL_USERCENTER_OP_OPEN_XOR8)
+        get() = if (m6320c(BaseApp.f7020a, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))) {
+            XORUtils.hash(PROVIDER_URL_USERCENTER_HT_OPEN_XOR8)
+        } else XORUtils.hash(PROVIDER_URL_USERCENTER_OP_OPEN_XOR8)
     val providerUsercenterFirstinXor8: String
-        get() = if (m6320c(BaseApp.f7020a, XORUtils.m6334a("kge&`mq|ix&}{mzkmf|mz"))) {
-            XORUtils.m6334a(PROVIDER_USERCENTER_HT_FIRSTIN_XOR8)
-        } else XORUtils.m6334a(PROVIDER_USERCENTER_FIRSTIN_XOR8)
+        get() = if (m6320c(BaseApp.f7020a, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))) {
+            XORUtils.hash(PROVIDER_USERCENTER_HT_FIRSTIN_XOR8)
+        } else XORUtils.hash(PROVIDER_USERCENTER_FIRSTIN_XOR8)
     val providerRealmeHostUrlXor8: String
-        get() = XORUtils.m6334a(PROVIDER_REALME_HOST_URL_XOR8)
+        get() = XORUtils.hash(PROVIDER_REALME_HOST_URL_XOR8)
     val providerExpReleaseUrlXor8: String
-        get() = XORUtils.m6334a(PROVIDER_EXP_RELEASE_URL_XOR8)
+        get() = XORUtils.hash(PROVIDER_EXP_RELEASE_URL_XOR8)
     val providerReleaseUrlXor8: String
-        get() = XORUtils.m6334a(PROVIDER_RELEASE_URL_XOR8)
+        get() = XORUtils.hash(PROVIDER_RELEASE_URL_XOR8)
     val providerTestUrlXor8: String
-        get() = XORUtils.m6334a(PROVIDER_TEST_URL_XOR8)
+        get() = XORUtils.hash(PROVIDER_TEST_URL_XOR8)
     val providerUsercenterAccountModifyNameComponentSafeXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_MODIFY_NAME_COMPONENT_SAFE_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_MODIFY_NAME_COMPONENT_SAFE_XOR8)
     val providerUsercenterAccountLogoutComponentSafeXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_LOGOUT_COMPONENT_SAFE_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_LOGOUT_COMPONENT_SAFE_XOR8)
     val providerUsercenterAccountLoginComponentSafeXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_LOGIN_COMPONENT_SAFE_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_LOGIN_COMPONENT_SAFE_XOR8)
     val providerUsercenterAccountLoginXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_LOGIN_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_LOGIN_XOR8)
     val providerUsercenterAccountLogoutXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_LOGOUT_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_LOGOUT_XOR8)
     val providerUsercenterAccountModifyNameXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_ACCOUNT_MODIFY_NAME_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_ACCOUNT_MODIFY_NAME_XOR8)
     val extraBroadcastUsercenterAescoderKey: String
-        get() = XORUtils.m6334a(EXTRA_BROADCAST_USERCENTER_AESCODER_KEY)
+        get() = XORUtils.hash(EXTRA_BROADCAST_USERCENTER_AESCODER_KEY)
     val providerUsercenterBindPageXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_BIND_PAGE_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_BIND_PAGE_XOR8)
     val extraRequestBindMessengerKey: String
-        get() = XORUtils.m6334a(EXTRA_REQUEST_BIND_MESSENGER_KEY)
+        get() = XORUtils.hash(EXTRA_REQUEST_BIND_MESSENGER_KEY)
     val extraResultUsercenterBindInfo: String
-        get() = XORUtils.m6334a(EXTRA_RESULT_USERCENTER_BIND_INFO)
+        get() = XORUtils.hash(EXTRA_RESULT_USERCENTER_BIND_INFO)
     val providerUsercenterModifyFullnameXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_MODIFY_FULLNAME_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_MODIFY_FULLNAME_XOR8)
     val providerUsercenterModifyAccountnameXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_MODIFY_ACCOUNTNAME_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_MODIFY_ACCOUNTNAME_XOR8)
     val providerUsercenterAutologinServiceXor8: String
-        get() = XORUtils.m6334a(PROVIDER_USERCENTER_AUTOLOGIN_SERVICE_XOR8)
+        get() = XORUtils.hash(PROVIDER_USERCENTER_AUTOLOGIN_SERVICE_XOR8)
 }

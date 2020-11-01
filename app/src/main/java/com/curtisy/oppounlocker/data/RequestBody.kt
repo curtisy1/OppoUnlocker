@@ -24,7 +24,7 @@ class C1234b {
         model = "PDEM30"
         otaVersion = "PDEM10_11.A.17_0470_202009091604"
 
-        val context2 = RequestService.f6808b
+        val context2 = RequestService.context
 
         token = AccountAgent.getHeytapToken(context2, context2.packageName) // TODO: HeyTap. Either recreate auth or manually read and store
         chipId = Utils.m6048c() // TODO: We don't have access to this either. Brute-force?

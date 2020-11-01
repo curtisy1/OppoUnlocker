@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.text.TextUtils
 import com.curtisy.oppounlocker.BuildConfig
 import com.curtisy.oppounlocker.heytap.Constants
+import com.curtisy.oppounlocker.heytap.parser.JsonConfigParser
 
 
 class ConfigManager private constructor() {
@@ -13,11 +14,11 @@ class ConfigManager private constructor() {
     private var mSharedPref: SharedPreferences? = null
 
     fun init(context: Context, str: String?) {
-        var str = str
-        if (TextUtils.isEmpty(str)) {
-            str = CONFIG_PREFS_NAME
+        var strVar = str
+        if (TextUtils.isEmpty(strVar)) {
+            strVar = CONFIG_PREFS_NAME
         }
-        mSharedPref = context.getSharedPreferences(str, 0)
+        mSharedPref = context.getSharedPreferences(strVar, 0)
         mEditor = mSharedPref!!.edit()
         JsonConfigParser().parse(Constants.DEFAULT_CONFIG)
     }
@@ -131,14 +132,6 @@ class ConfigManager private constructor() {
     companion object {
         private const val CONFIG_PREFS_NAME = "com.coloros.net"
         private val LOCK = ByteArray(0)
-        private var configManager: ConfigManager? = null
-
-        fun getInstance() : ConfigManager {
-            if(configManager == null) {
-                configManager = ConfigManager()
-            }
-
-            return configManager as ConfigManager
-        }
+        val instance = ConfigManager()
     }
 }

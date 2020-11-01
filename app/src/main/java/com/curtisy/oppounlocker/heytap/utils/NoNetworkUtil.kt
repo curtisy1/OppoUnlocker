@@ -13,8 +13,8 @@ import java.io.InputStream
 
 object NoNetworkUtil {
     const val AIRPLANE_MODE_ON_STR = 0
-    val HTTPS_CAPTIVESERVER1 = XORUtils.m6334a("`||x{2''kgff9&kgdgzg{&kge'omfmzi|mW:8<")
-    val HTTPS_CAPTIVESERVER2 = XORUtils.m6334a("`||x{2''kgff:&kgdgzg{&kge'omfmzi|mW:8<")
+    val HTTPS_CAPTIVESERVER1 = XORUtils.hash("`||x{2''kgff9&kgdgzg{&kge'omfmzi|mW:8<")
+    val HTTPS_CAPTIVESERVER2 = XORUtils.hash("`||x{2''kgff:&kgdgzg{&kge'omfmzi|mW:8<")
     const val MOBILE_AND_WLAN_NETWORK_NOT_CONNECT_STR = 1
     const val MOBILE_SSL_DATE_INVALID = 4
     const val NETWORK_CONNECT_OK_STR = -1

@@ -97,18 +97,18 @@ class AesEncryptUtils {
             return null
         }
 
-        fun m6017b(str: String?): String? {
+        fun decrypt(str: String?): String {
             val eVar = try {
                 Gson().fromJson(str, Response::class.java)
             } catch (unused: Exception) {
                 null
             }
             return if (eVar?.resps == null) {
-                null
-            } else m6018b(eVar.resps, f6727a)
+                ""
+            } else decrypt(eVar.resps, f6727a)
         }
 
-        private fun m6018b(str: String, str2: String?): String? {
+        private fun decrypt(str: String, str2: String?): String {
             return try {
                 val secretKeySpec = SecretKeySpec(Base64.decodeBase64(str2!!.toByteArray(charset("UTF-8"))), "AES")
                 val ivParameterSpec = IvParameterSpec(m6020c(m6014a(Base64.decodeBase64(str2.toByteArray(charset("UTF-8"))))))
@@ -117,7 +117,7 @@ class AesEncryptUtils {
                 String(instance.doFinal(Base64.decodeBase64(str.toByteArray(charset("UTF-8")))), charset("UTF-8"))
             } catch (e: Exception) {
                 e.printStackTrace()
-                null
+                ""
             }
         }
 

@@ -6,18 +6,18 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.provider.SyncStateContract
 import android.text.TextUtils
 import com.curtisy.oppounlocker.BuildConfig
 import com.curtisy.oppounlocker.helper.ApkInfoHelper
+import com.curtisy.oppounlocker.helper.ApkInfoHelper.m6318a
 import com.curtisy.oppounlocker.heytap.BaseApp
 import com.curtisy.oppounlocker.heytap.Constants
-import com.curtisy.oppounlocker.heytap.models.SignInAccount
 import com.curtisy.oppounlocker.heytap.models.AppInfo
 import com.curtisy.oppounlocker.heytap.models.C0854b
+import com.curtisy.oppounlocker.heytap.models.SignInAccount
+import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider
 import com.curtisy.oppounlocker.heytap.tasks.AsyncTaskC0857f
 import com.curtisy.oppounlocker.heytap.tasks.AsyncTaskC0858g
 import com.curtisy.oppounlocker.heytap.usercenter.UCCommonResponse
@@ -50,7 +50,7 @@ class AccountAgent : IAccountAgent {
     }
 
     private fun isMultiAccountVersion(context: Context): Boolean {
-        return !isSingleUserVersion(context) && ApkInfoHelper.m6318a(context, XORUtils.m6334a("kge&gxxg&{mz~akm&ikkg}f|")) > 0 && getVersionCode(context) >= 230
+        return !isSingleUserVersion(context) && ApkInfoHelper.m6318a(context, XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|")) > 0 && getVersionCode(context) >= 230
     }
 
     @SuppressLint("WrongConstant")
@@ -280,20 +280,11 @@ class AccountAgent : IAccountAgent {
         const val SIGNINACCOUNT_EXPIRATIONTIME: Long = 600000
         var mVersionCode = -1
 
-        fun sendExceptionMessage(handler: Handler, str: String?) {
-            val accountResult = AccountResult(Constants.REQ_EXCEPTION, str, BuildConfig.FLAVOR, BuildConfig.FLAVOR, true, false, false)
-            val obtain: Message = Message.obtain(null as Handler?, SyncStateContract.Constants.MSG_RESULT_FOR_REQ_BINDINFO as Int)
-            val bundle = Bundle()
-            bundle.putString(UCHeyTapAccountProvider.getExtraResultUsercenterBindInfo(), AccountResult.toJson(accountResult))
-            obtain.setData(bundle)
-            handler.sendMessage(obtain)
-        }
-
-        fun getUserCenterVersionCode(context: Context?): Int {
-            val a: Int = ApkInfoHelper.m6318a(context, XORUtils.m6334a("kge&`mq|ix&}{mzkmf|mz"))
+        fun getUserCenterVersionCode(context: Context): Int {
+            val a = m6318a(context, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))
             return if (a > 0) {
                 a
-            } else ApkInfoHelper.m6318a(context, XORUtils.m6334a("kge&gxxg&}{mzkmf|mz"))
+            } else m6318a(context, XORUtils.hash("kge&gxxg&}{mzkmf|mz"))
         }
 
         fun initContextIfNeeded(context: Context?) {
@@ -309,16 +300,57 @@ class AccountAgent : IAccountAgent {
             return mVersionCode >= 300
         }
 
+        fun isVersionUpV320(context: Context): Boolean {
+            if (mVersionCode < 0) {
+                mVersionCode = getUserCenterVersionCode(context)
+            }
+            return mVersionCode >= 320
+        }
+
         fun getHeytapToken(context: Context, str: String?): String {
             initContextIfNeeded(context)
             if (!isSingleUserVersion(context)) {
-                return AccountAgent.m6154b(context, str)
+                return m6154b(context, str)
             }
             if (!isVersionUpV320(context)) {
                 return AccountPrefUtils.getTokenByProvider(context)
             }
             val a = AccountAgentV320.m4617a(context)
-            return if (AccountAgentV320.m4619a(a)) a.f4556b else BuildConfig.FLAVOR
+            return if (AccountAgentV320.m4619a(a)) a?.f4556b ?: "" else BuildConfig.FLAVOR
+        }
+
+        fun m6154b(context: Context, str: String?): String {
+            if (m6153b(context) >= 230) {
+                return AuthTokenProvider.m6163a(context, str)
+            }
+            if (m6159d(context)) {
+                return AuthTokenProvider.m6162a(context)
+            }
+            return if (m6160e(context)) {
+                AuthTokenProvider.m6166c(context)
+            } else ""
+        }
+
+        private fun m6153b(context: Context): Int {
+            return try {
+                m6318a(context, XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"))
+            } catch (unused: Exception) {
+                0
+            }
+        }
+
+        private fun m6159d(context: Context): Boolean {
+            return m6318a(context, XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|")) > 0
+        }
+
+        private fun m6160e(context: Context): Boolean {
+            var i = try {
+                m6318a(context, XORUtils.hash("kge&gxxg&}{mzkmf|mz"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                0
+            }
+            return !(i >= 130 || i <= 110)
         }
     }
 }
