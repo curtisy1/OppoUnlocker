@@ -27,9 +27,9 @@ class UserEntity : Parcelable {
 
     constructor() {
         f6916a = 0
-        f6917b = BuildConfig.FLAVOR
-        f6918c = BuildConfig.FLAVOR
-        f6919d = BuildConfig.FLAVOR
+        f6917b = ""
+        f6918c = ""
+        f6919d = ""
     }
 
     constructor(i: Int, str: String, str2: String, str3: String) {

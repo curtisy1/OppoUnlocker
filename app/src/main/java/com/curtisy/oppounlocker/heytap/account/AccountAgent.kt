@@ -170,7 +170,7 @@ class AccountAgent : IAccountAgent {
             return AccountPrefUtils.getNameByProvider(context)
         }
         val a: C0854b = AccountAgentV320.m4617a(context)
-        return if (AccountAgentV320.m4619a(a)) a.f4555a else BuildConfig.FLAVOR
+        return if (AccountAgentV320.m4619a(a)) a.f4555a else ""
     }
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
@@ -203,9 +203,9 @@ class AccountAgent : IAccountAgent {
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
     fun reqLogout(context: Context) {
         if (isSingleUserVersion(context)) {
-            jumpToUserCenter(context, BuildConfig.FLAVOR)
+            jumpToUserCenter(context, "")
         } else {
-            AccountAgent.m6158d(context, BuildConfig.FLAVOR)
+            AccountAgent.m6158d(context, "")
         }
     }
 
@@ -217,7 +217,7 @@ class AccountAgent : IAccountAgent {
                 mLocalReqHandlerRef = handler
                 AccountHelper.startReqSignInActivity(context, str)
             } catch (unused: ActivityNotFoundException) {
-                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", BuildConfig.FLAVOR, BuildConfig.FLAVOR))
+                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", "", ""))
             }
         } else {
             AccountAgent.m6155b(context, handler, str)
@@ -249,7 +249,7 @@ class AccountAgent : IAccountAgent {
                 mLocalReqHandlerRef = handler
                 AccountHelper.startReqTokenActivity(context, str, false)
             } catch (unused: ActivityNotFoundException) {
-                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", BuildConfig.FLAVOR, BuildConfig.FLAVOR))
+                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", "", ""))
             }
         } else if (isVersionUpV320(context)) {
             AccountAgentV320.m4618a(context, handler)
@@ -270,9 +270,9 @@ class AccountAgent : IAccountAgent {
     fun startAccountSettingActivity(context: Context, str: String?) {
         initContextIfNeeded(context)
         if (isSingleUserVersion(context)) {
-            jumpToUserCenter(context, BuildConfig.FLAVOR)
+            jumpToUserCenter(context, "")
         } else {
-            AccountAgent.m6158d(context, BuildConfig.FLAVOR)
+            AccountAgent.m6158d(context, "")
         }
     }
 
@@ -316,7 +316,7 @@ class AccountAgent : IAccountAgent {
                 return AccountPrefUtils.getTokenByProvider(context)
             }
             val a = AccountAgentV320.m4617a(context)
-            return if (AccountAgentV320.m4619a(a)) a?.f4556b ?: "" else BuildConfig.FLAVOR
+            return if (AccountAgentV320.m4619a(a)) a?.f4556b ?: "" else ""
         }
 
         fun m6154b(context: Context, str: String?): String {

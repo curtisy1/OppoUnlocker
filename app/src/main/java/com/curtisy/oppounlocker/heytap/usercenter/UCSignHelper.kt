@@ -22,7 +22,7 @@ object UCSignHelper {
             }
             for (field in arrayList2) {
                 field.isAccessible = true
-                if (field.getAnnotation(NoSign::class.java) == null && field.get(obj).also { obj2 = it } != null && obj2 !== BuildConfig.FLAVOR && !TextUtils.isEmpty(obj2.toString())) {
+                if (field.getAnnotation(NoSign::class.java) == null && field.get(obj).also { obj2 = it } != null && obj2 !== "" && !TextUtils.isEmpty(obj2.toString())) {
                     val name: String = field.name
                     arrayList.add("$name=$obj2&")
                 }

@@ -75,6 +75,6 @@ object AccountPrefUtils {
         if (context != null) {
             return getPackageSharedPreferences(context).getString(str, str2)
         }
-        return BuildConfig.FLAVOR
+        return ""
     }
 }

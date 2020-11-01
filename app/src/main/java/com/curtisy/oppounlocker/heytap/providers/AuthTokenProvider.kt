@@ -23,8 +23,8 @@ object AuthTokenProvider {
                 null
             }
             return if (context2 != null) {
-                context2.getSharedPreferences("USER_INFO", Context.MODE_MULTI_PROCESS).getString("USER_INFO_TOKEN", BuildConfig.FLAVOR) ?: ""
-            } else BuildConfig.FLAVOR
+                context2.getSharedPreferences("USER_INFO", Context.MODE_MULTI_PROCESS).getString("USER_INFO_TOKEN", "") ?: ""
+            } else ""
         }
         return try {
             cursor = context.contentResolver.query(Uri.parse(XORUtils.hash("kgf|mf|2''kge&gxxg&{mz~akm&ikkg}f|&|gcmfxzg~almz")), null, null, null, null)
@@ -42,7 +42,7 @@ object AuthTokenProvider {
                     cursor!!.close()
                 } catch (unused3: Exception) {
                 }
-                BuildConfig.FLAVOR
+                ""
             } catch (th: Throwable) {
                 try {
                     cursor!!.close()
@@ -52,7 +52,7 @@ object AuthTokenProvider {
             }
         } catch (unused5: Exception) {
             cursor!!.close()
-            BuildConfig.FLAVOR
+            ""
         } catch (th2: Throwable) {
             cursor!!.close()
             throw th2
@@ -71,8 +71,8 @@ object AuthTokenProvider {
                 null
             }
             return if (context2 != null) {
-                context2.getSharedPreferences("USER_INFO", Context.MODE_MULTI_PROCESS).getString("USER_INFO_UNAME", BuildConfig.FLAVOR)
-            } else BuildConfig.FLAVOR
+                context2.getSharedPreferences("USER_INFO", Context.MODE_MULTI_PROCESS).getString("USER_INFO_UNAME", "")
+            } else ""
         }
         return try {
             cursor = context.contentResolver.query(Uri.parse(XORUtils.hash("kgf|mf|2''kge&gxxg&{mz~akm&ikkg}f|&|gcmfxzg~almz")), null, null, null, null)
@@ -90,7 +90,7 @@ object AuthTokenProvider {
                     cursor!!.close()
                 } catch (unused3: Exception) {
                 }
-                BuildConfig.FLAVOR
+                ""
             } catch (th: Throwable) {
                 try {
                     cursor!!.close()
@@ -100,7 +100,7 @@ object AuthTokenProvider {
             }
         } catch (unused5: Exception) {
             cursor!!.close()
-            BuildConfig.FLAVOR
+            ""
         } catch (th2: Throwable) {
             cursor!!.close()
             throw th2
@@ -173,7 +173,7 @@ object AuthTokenProvider {
                         cursor.close()
                     } catch (unused: Exception) {
                     }
-                    return BuildConfig.FLAVOR
+                    return ""
                 }
                 try {
                     cursor.close()
@@ -185,7 +185,7 @@ object AuthTokenProvider {
                     cursor!!.close()
                 } catch (unused4: Exception) {
                 }
-                BuildConfig.FLAVOR
+                ""
             } catch (th: Throwable) {
                 try {
                     cursor!!.close()
@@ -195,7 +195,7 @@ object AuthTokenProvider {
             }
         } catch (unused6: Exception) {
             cursor!!.close()
-            BuildConfig.FLAVOR
+            ""
         } catch (th2: Throwable) {
             cursor!!.close()
             throw th2
@@ -208,20 +208,20 @@ object AuthTokenProvider {
         if (!m6169e(context) || !m6167c(context, str)) {
             try {
                 val createPackageContext = context.createPackageContext(XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"), Context.CONTEXT_IGNORE_SECURITY)
-                        ?: return BuildConfig.FLAVOR
-                string = createPackageContext.getSharedPreferences("USER_TOKEN_INFO", Context.MODE_MULTI_PROCESS).getString(str, BuildConfig.FLAVOR) ?: ""
+                        ?: return ""
+                string = createPackageContext.getSharedPreferences("USER_TOKEN_INFO", Context.MODE_MULTI_PROCESS).getString(str, "") ?: ""
             } catch (e: NameNotFoundException) {
                 e.printStackTrace()
-                return BuildConfig.FLAVOR
+                return ""
             }
         } else {
             try {
                 val createPackageContext2 = context.createPackageContext(XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"), Context.CONTEXT_IGNORE_SECURITY)
-                        ?: return BuildConfig.FLAVOR
-                string = createPackageContext2.getSharedPreferences("APP_LOGIN_RECORD_INFO", Context.MODE_MULTI_PROCESS).getString("TokenWhenOneAccount", BuildConfig.FLAVOR) ?: ""
+                        ?: return ""
+                string = createPackageContext2.getSharedPreferences("APP_LOGIN_RECORD_INFO", Context.MODE_MULTI_PROCESS).getString("TokenWhenOneAccount", "") ?: ""
             } catch (e2: NameNotFoundException) {
                 e2.printStackTrace()
-                return BuildConfig.FLAVOR
+                return ""
             }
         }
         return string
@@ -233,20 +233,20 @@ object AuthTokenProvider {
         if (!m6169e(context) || !m6167c(context, str)) {
             try {
                 val createPackageContext = context.createPackageContext(XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"), Context.CONTEXT_IGNORE_SECURITY)
-                        ?: return BuildConfig.FLAVOR
-                string = createPackageContext.getSharedPreferences("USER_NAME_INFO", Context.MODE_MULTI_PROCESS).getString(str, BuildConfig.FLAVOR) ?: ""
+                        ?: return ""
+                string = createPackageContext.getSharedPreferences("USER_NAME_INFO", Context.MODE_MULTI_PROCESS).getString(str, "") ?: ""
             } catch (e: NameNotFoundException) {
                 e.printStackTrace()
-                return BuildConfig.FLAVOR
+                return ""
             }
         } else {
             try {
                 val createPackageContext2 = context.createPackageContext(XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|"), Context.CONTEXT_IGNORE_SECURITY)
-                        ?: return BuildConfig.FLAVOR
-                string = createPackageContext2.getSharedPreferences("APP_LOGIN_RECORD_INFO", Context.MODE_MULTI_PROCESS).getString("NameWhenOneAccount", BuildConfig.FLAVOR) ?: ""
+                        ?: return ""
+                string = createPackageContext2.getSharedPreferences("APP_LOGIN_RECORD_INFO", Context.MODE_MULTI_PROCESS).getString("NameWhenOneAccount", "") ?: ""
             } catch (e2: NameNotFoundException) {
                 e2.printStackTrace()
-                return BuildConfig.FLAVOR
+                return ""
             }
         }
         return string

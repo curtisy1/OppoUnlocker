@@ -26,7 +26,7 @@ object AccountHelper {
         val appInfo = AppInfo()
         appInfo.appCode = str
         appInfo.packageName = context.packageName
-        appInfo.secreKey = BuildConfig.FLAVOR
+        appInfo.secreKey = ""
         appInfo.appVersion = m6318a(context, context.packageName)
         return appInfo
     }

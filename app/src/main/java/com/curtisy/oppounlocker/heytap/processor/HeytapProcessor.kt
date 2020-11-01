@@ -35,7 +35,7 @@ class HeytapProcessor(context: Context?, netonConfig: NetonConfig?) {
         private set
 
     fun checkRegionCode() {
-        if (1 != ConfigManager.instance.getIntData(Constants.KEY_DNS_MODE, 1) && TextUtils.isEmpty(ConfigManager.instance.getStringData(Constants.KEY_REGIONCODE, BuildConfig.FLAVOR))) {
+        if (1 != ConfigManager.instance.getIntData(Constants.KEY_DNS_MODE, 1) && TextUtils.isEmpty(ConfigManager.instance.getStringData(Constants.KEY_REGIONCODE, ""))) {
             throw Exception("fatal error, exception, please set regionCode when use httpDns !")
         }
     }
@@ -324,14 +324,14 @@ class HeytapProcessor(context: Context?, netonConfig: NetonConfig?) {
             fun onResponse(call: Call?, response: Response) {
                 if (response.isSuccessful) {
                     callback.onResponse(call, response)
-                    statisticRequest(processRequest, response.code, if (response.code == 200) BuildConfig.FLAVOR else response.message)
+                    statisticRequest(processRequest, response.code, if (response.code == 200) "" else response.message)
                     DnsManager.instance.updateIpInfo(ipInfo)
                     LiveOnHttpsManager.instance.updateLiveOn(request, processRequest, true)
                     return
                 }
                 ipInfo?.updateFailCount(mContext!!, 1)
                 callback2.onResponse(call, response)
-                statisticRequest(processRequest, response.code, if (response.code == 200) BuildConfig.FLAVOR else response.message)
+                statisticRequest(processRequest, response.code, if (response.code == 200) "" else response.message)
             }
         })
     }
@@ -350,7 +350,7 @@ class HeytapProcessor(context: Context?, netonConfig: NetonConfig?) {
         var ipInfo: IpInfo? = null
         try {
             val lookup: IpInfo = DnsManager.instance.lookup(request.url().host())
-            str = BuildConfig.FLAVOR
+            str = ""
             e = null
             ipInfo = lookup
         } catch (e: UnknownHostException) {

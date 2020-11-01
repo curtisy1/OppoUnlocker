@@ -24,6 +24,6 @@ object UCOSVersionUtil {
 
     /* renamed from: c */
     fun m6285c(): String? {
-        return SystemPropertyUtils.getProp(XORUtils.hash("zg&j}adl&~mz{agf&gxxgzge"), BuildConfig.FLAVOR)
+        return SystemPropertyUtils.getProp(XORUtils.hash("zg&j}adl&~mz{agf&gxxgzge"), "")
     }
 }

@@ -14,7 +14,7 @@ object UCUtils {
     /* renamed from: a */
     fun m6330a(str: String): String? {
         return if (TextUtils.isEmpty(str)) {
-            BuildConfig.FLAVOR
+            ""
         } else try {
             val digest = MessageDigest.getInstance("MD5").digest(str.toByteArray(charset("UTF-8")))
             if (digest.isNotEmpty()) {
@@ -32,7 +32,7 @@ object UCUtils {
     /* renamed from: a */
     fun m6331a(jSONObject: JSONObject, str: String): String {
         return if (m6333c(jSONObject, str)) {
-            BuildConfig.FLAVOR
+            ""
         } else jSONObject.getString(str)
     }
 

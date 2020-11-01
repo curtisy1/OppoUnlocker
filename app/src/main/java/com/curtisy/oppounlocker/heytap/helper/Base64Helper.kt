@@ -12,22 +12,22 @@ object Base64Helper {
     fun base64Decode(str: String?): String {
         return try {
             if (TextUtils.isEmpty(str)) {
-                BuildConfig.FLAVOR
+                ""
             } else String(Base64.decode(str, 0), Charset.forName("UTF-8"))
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
-            BuildConfig.FLAVOR
+            ""
         }
     }
 
     fun base64Encode(str: String): String {
         return try {
             if (TextUtils.isEmpty(str)) {
-                BuildConfig.FLAVOR
+                ""
             } else String(Base64.encode(str.toByteArray(), 0), Charset.forName("UTF-8"))
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
-            BuildConfig.FLAVOR
+            ""
         }
     }
 }

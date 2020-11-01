@@ -29,9 +29,9 @@ object UCDeviceInfoUtil {
     fun m6311b(context: Context): String {
         return try {
             val telephonyManager = context.getSystemService("phone") as TelephonyManager
-            if (!TextUtils.isEmpty(telephonyManager.line1Number)) m6309a(telephonyManager.networkOperatorName) else BuildConfig.FLAVOR
+            if (!TextUtils.isEmpty(telephonyManager.line1Number)) m6309a(telephonyManager.networkOperatorName) else ""
         } catch (unused: Exception) {
-            BuildConfig.FLAVOR
+            ""
         }
     }
 
@@ -40,7 +40,7 @@ object UCDeviceInfoUtil {
         return try {
             m6309a(Build.VERSION.RELEASE)
         } catch (unused: Exception) {
-            BuildConfig.FLAVOR
+            ""
         }
     }
 
@@ -49,7 +49,7 @@ object UCDeviceInfoUtil {
         return try {
             m6309a(Build.MANUFACTURER)
         } catch (unused: Exception) {
-            BuildConfig.FLAVOR
+            ""
         }
     }
 
@@ -57,7 +57,7 @@ object UCDeviceInfoUtil {
     private fun m6309a(str: String): String {
         var str = str
         if (TextUtils.isEmpty(str)) {
-            return BuildConfig.FLAVOR
+            return ""
         }
         if (str.length > 15) {
             str = str.substring(0, 15)
@@ -66,7 +66,7 @@ object UCDeviceInfoUtil {
             URLEncoder.encode(str, "UTF-8")
         } catch (e: Exception) {
             e.printStackTrace()
-            BuildConfig.FLAVOR
+            ""
         }
     }
 

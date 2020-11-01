@@ -37,7 +37,7 @@ object ApkInfoUtil {
     }
 
     val romVersion: String
-        get() = SystemProperties.get(OPPO_ROM_VERSION, BuildConfig.FLAVOR)
+        get() = SystemProperties.get(OPPO_ROM_VERSION, "")
 
     fun getVersionCode(context: Context): Int {
         return try {
@@ -67,7 +67,7 @@ object ApkInfoUtil {
     }
 
     val model: String
-        get() = SystemProperties.get(OPPO_MODEL, BuildConfig.FLAVOR)
+        get() = SystemProperties.get(OPPO_MODEL, "")
     val osVersion: String
         get() = SystemProperties.get(OPPO_OS_VERSION, "V1.0.0")
 

@@ -61,7 +61,7 @@ class HttpDns(context: Context) : DnsImp(context) {
 //        if (listData == null || listData.isEmpty()) {
 //            listData = (if (isRegionCN) Constants.DEFAULT_HTTP_DNS_LIST else Constants.DEFAULT_FOREIGN_HTTP_DNS_LIST).toList() as ArrayList<String>
 //        }
-//        if (listData != null || !TextUtils.isEmpty(BuildConfig.FLAVOR)) {
+//        if (listData != null || !TextUtils.isEmpty("")) {
 //            val arrayList = ArrayList<Any>()
 //            var z = false
 //            var i = 0
@@ -88,7 +88,7 @@ class HttpDns(context: Context) : DnsImp(context) {
 //                }
 //            }
 //            if (!z) {
-//                val requestDns2: List<String> = HttpRequestHelper.getRequestDns(context, BuildConfig.FLAVOR, str)
+//                val requestDns2: List<String> = HttpRequestHelper.getRequestDns(context, "", str)
 //                val arrayList3 = ArrayList<Any>()
 //                if (requestDns2 != null && requestDns2.size > 0) {
 //                    for (str4 in requestDns2) {

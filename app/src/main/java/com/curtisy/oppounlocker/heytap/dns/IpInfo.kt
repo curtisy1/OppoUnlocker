@@ -23,7 +23,7 @@ class IpInfo(str: String?, i: Int) : DnsInfo(str, i) {
     private var port = -1
 
     /* renamed from: sp */
-    var sp: String = BuildConfig.FLAVOR
+    var sp: String = ""
     var weight = 0
 
     fun getPort(): Int {
@@ -120,7 +120,7 @@ class IpInfo(str: String?, i: Int) : DnsInfo(str, i) {
                     ipInfo.ttl = split[2].toLong()
                     ipInfo.weight = split[3].toInt()
                     ipInfo.sp = split[4]
-                    ipInfo.local = if (split.size > 5) split[5] else BuildConfig.FLAVOR
+                    ipInfo.local = if (split.size > 5) split[5] else ""
                     ipInfo
                 } catch (e: Exception) {
                     null

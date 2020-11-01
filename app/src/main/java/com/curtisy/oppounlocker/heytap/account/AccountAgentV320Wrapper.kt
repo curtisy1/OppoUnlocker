@@ -47,7 +47,7 @@ object AccountAgentV320 {
             }
 
             val message2 = Message()
-            message2.obj = UserEntity(Constants.REQ_FAILED, "fail", BuildConfig.FLAVOR, BuildConfig.FLAVOR)
+            message2.obj = UserEntity(Constants.REQ_FAILED, "fail", "", "")
             handler.sendMessage(message2)
         }
     }

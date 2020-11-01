@@ -154,9 +154,9 @@ object NetHelper {
                         }
                     }
                 }
-                BuildConfig.FLAVOR
+                ""
             } catch (e: Exception) {
-                BuildConfig.FLAVOR
+                ""
             }
         }
 

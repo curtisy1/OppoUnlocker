@@ -97,7 +97,7 @@ class ConfigManager private constructor() {
     }
 
     fun getStringData(str: String?): String? {
-        return mSharedPref!!.getString(str, BuildConfig.FLAVOR)
+        return mSharedPref!!.getString(str, "")
     }
 
     fun setStringSet(str: String?, hashSet: HashSet<String>?) {
