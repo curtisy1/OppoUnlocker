@@ -7,10 +7,10 @@ import android.os.RemoteException
 import com.curtisy.oppounlocker.MainActivity
 
 
-internal class ServiceHandler(val f6813a: RequestService, looper: Looper) : Handler(looper) {
+internal class ServiceHandler(val requestService: RequestService, looper: Looper) : Handler(looper) {
     override fun handleMessage(message: Message) {
         val message2 = Message()
-        val a = f6813a.mo6779a()
+        val a = requestService.getUnlockStatus()
         if (a == null) {
             message2.what = 100
         } else {
@@ -38,7 +38,7 @@ internal class ServiceHandler(val f6813a: RequestService, looper: Looper) : Hand
         }
 
         try {
-            f6813a.f6811e!!.send(message2)
+            requestService.messenger!!.send(message2)
         } catch (e: RemoteException) {
             e.printStackTrace()
         }

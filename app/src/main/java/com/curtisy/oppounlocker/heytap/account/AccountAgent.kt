@@ -13,23 +13,30 @@ import com.curtisy.oppounlocker.BuildConfig
 import com.curtisy.oppounlocker.helper.ApkInfoHelper
 import com.curtisy.oppounlocker.helper.ApkInfoHelper.m6318a
 import com.curtisy.oppounlocker.heytap.BaseApp
+import com.curtisy.oppounlocker.heytap.CallInfoAgent
 import com.curtisy.oppounlocker.heytap.Constants
 import com.curtisy.oppounlocker.heytap.models.AppInfo
 import com.curtisy.oppounlocker.heytap.models.C0854b
 import com.curtisy.oppounlocker.heytap.models.SignInAccount
+import com.curtisy.oppounlocker.heytap.models.UserEntity
 import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider
+import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider.m6162a
+import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider.m6163a
+import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider.m6167c
+import com.curtisy.oppounlocker.heytap.providers.AuthTokenProvider.m6169e
 import com.curtisy.oppounlocker.heytap.tasks.AsyncTaskC0857f
 import com.curtisy.oppounlocker.heytap.tasks.AsyncTaskC0858g
 import com.curtisy.oppounlocker.heytap.usercenter.UCCommonResponse
 import com.curtisy.oppounlocker.heytap.usercenter.UCHeyTapAccountProvider
+import com.curtisy.oppounlocker.heytap.usercenter.UCHeyTapCommonProvider.m6288a
 import com.curtisy.oppounlocker.heytap.usercenter.UCRuntimeEnvironment
 import com.curtisy.oppounlocker.heytap.utils.AccountPrefUtils
 import com.curtisy.oppounlocker.utilities.XORUtils
 import org.json.JSONObject
 
 
+// this used to be AccountAgentWrapper
 class AccountAgent : IAccountAgent {
-    var mLocalReqHandlerRef: Handler? = null
     var mSignInAccount: SignInAccount? = null
 
     @SuppressLint("StaticFieldLeak")
@@ -50,13 +57,23 @@ class AccountAgent : IAccountAgent {
     }
 
     private fun isMultiAccountVersion(context: Context): Boolean {
-        return !isSingleUserVersion(context) && ApkInfoHelper.m6318a(context, XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|")) > 0 && getVersionCode(context) >= 230
+        return !isSingleUserVersion(context) && ApkInfoHelper.m6318a(
+            context,
+            XORUtils.hash("kge&gxxg&{mz~akm&ikkg}f|")
+        ) > 0 && getVersionCode(context) >= 230
     }
 
     @SuppressLint("WrongConstant")
     private fun jumpToUserCenter(context: Context, str: String) {
         val intent = Intent(UCHeyTapAccountProvider.providerUsercenterFirstinXor8)
-        intent.putExtra(Constants.EXTRA_ACTION_APPINFO_KEY, AppInfo.toJson(AccountHelper.getAppInfo(context, str)))
+        intent.putExtra(
+            Constants.EXTRA_ACTION_APPINFO_KEY, AppInfo.toJson(
+                AccountHelper.getAppInfo(
+                    context,
+                    str
+                )
+            )
+        )
         intent.flags = 536870912
         if (context !is Activity) {
             intent.addFlags(268435456)
@@ -69,13 +86,20 @@ class AccountAgent : IAccountAgent {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private fun postReqAccountInfoNetExceptionResult(context: Context, onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount>) {
+    private fun postReqAccountInfoNetExceptionResult(
+        context: Context,
+        onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount>
+    ) {
         AsyncTaskC0858g(this, context, context, onreqaccountcallback).execute()
     }
 
     /* access modifiers changed from: private */
     @SuppressLint("StaticFieldLeak")
-    fun postReqAccountInfoResult(context: Context, uCCommonResponse: UCCommonResponse<JSONObject?>?, onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>) {
+    fun postReqAccountInfoResult(
+        context: Context,
+        uCCommonResponse: UCCommonResponse<JSONObject?>?,
+        onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>
+    ) {
         var errorResp: UCCommonResponse<JSONObject?>.ErrorResp
         mSignInAccount = SignInAccount()
         if (uCCommonResponse == null || !uCCommonResponse.isSuccess()) {
@@ -92,40 +116,37 @@ class AccountAgent : IAccountAgent {
             onreqaccountcallback.onReqFinish(mSignInAccount)
             return
         }
-        AsyncTaskC0857f(this, context, uCCommonResponse, context, onreqaccountcallback).execute(arrayOfNulls<Void>(0))
+        AsyncTaskC0857f(this, context, uCCommonResponse, context, onreqaccountcallback).execute(
+            arrayOfNulls<Void>(
+                0
+            )
+        )
     }
 
     /* access modifiers changed from: private */
-    fun reqAccountInfo(context: Context, z: Boolean, str: String?, onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount>?) {
+    fun reqAccountInfo(
+        context: Context,
+        z: Boolean,
+        str: String?,
+        onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount>?
+    ) {
         if (onreqaccountcallback != null) {
             if (!NoNetworkUtil.isConnectNet(context)) {
                 postReqAccountInfoNetExceptionResult(context, onreqaccountcallback)
                 return
             }
             val eVar = C0856e(this, context, onreqaccountcallback)
-            val accountNameParam = AccountNameParam(str, UCDeviceInfoUtil.m6312c(), UCRuntimeEnvironment.f7014a, z)
-            UCDispatcherManager.getInstance().post(context, accountNameParam.getUrl(), accountNameParam.getRequestBody(), C0859j(eVar))
-        }
-    }
-
-    private fun sendLoginSuccessMessage(handler: Handler?, context: Context) {
-        if (handler != null) {
-            if (isVersionUpV320(context)) {
-                AccountAgentV320.m4618a(context, handler)
-                return
-            }
-            val message = Message()
-            message.obj = AccountPrefUtils.getUserEntity(context, null)
-            handler.sendMessage(message)
-        }
-    }
-
-    private fun sendUserMessage(handler: Handler?, userEntity: UserEntity) {
-        if (handler != null) {
-            val message = Message()
-            message.obj = userEntity
-            handler.sendMessage(message)
-            mLocalReqHandlerRef = null
+            val accountNameParam = AccountNameParam(
+                str,
+                UCDeviceInfoUtil.m6312c(),
+                UCRuntimeEnvironment.f7014a,
+                z
+            )
+            UCDispatcherManager.getInstance().post(
+                context, accountNameParam.getUrl(), accountNameParam.getRequestBody(), C0859j(
+                    eVar
+                )
+            )
         }
     }
 
@@ -155,9 +176,17 @@ class AccountAgent : IAccountAgent {
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
     @SuppressLint("StaticFieldLeak")
-    fun getSignInAccount(context: Context?, z: Boolean, onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>?) {
+    fun getSignInAccount(
+        context: Context?,
+        z: Boolean,
+        onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>?
+    ) {
         initContextIfNeeded(context)
-        AccountAgentWrapper(this, context, onreqaccountcallback, context, z).execute(arrayOfNulls<Void>(0))
+        AccountAgentWrapper(this, context, onreqaccountcallback, context, z).execute(
+            arrayOfNulls<Void>(
+                0
+            )
+        )
     }
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
@@ -176,19 +205,6 @@ class AccountAgent : IAccountAgent {
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
     fun hasUserCenterApp(context: Context): Boolean {
         return getVersionCode(context) > 0
-    }
-
-    // com.heytap.usercenter.accountsdk.AccountAgentInterface
-    fun isLogin(context: Context, str: String?): Boolean {
-        initContextIfNeeded(context)
-        if (!isSingleUserVersion(context)) {
-            return AccountAgent.m6152a(context, str)
-        }
-        if (isVersionUpV320(context)) {
-            return AccountAgentV320.m4619a(AccountAgentV320.m4617a(context))
-        }
-        val userEntity: UserEntity = AccountPrefUtils.getUserEntity(context, null)
-        return userEntity != null && !TextUtils.isEmpty(userEntity.mo6986b()) && !TextUtils.isEmpty(userEntity.mo6983a()) && userEntity.mo6988c() === 30001001
     }
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
@@ -217,7 +233,14 @@ class AccountAgent : IAccountAgent {
                 mLocalReqHandlerRef = handler
                 AccountHelper.startReqSignInActivity(context, str)
             } catch (unused: ActivityNotFoundException) {
-                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", "", ""))
+                sendUserMessage(
+                    handler, UserEntity(
+                        Constants.REQ_USERCENTER_NOT_EXIST,
+                        "usercenter is not exist!",
+                        "",
+                        ""
+                    )
+                )
             }
         } else {
             AccountAgent.m6155b(context, handler, str)
@@ -226,36 +249,18 @@ class AccountAgent : IAccountAgent {
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
     @SuppressLint("HandlerLeak")
-    fun reqSignInAccount(context: Context, z: Boolean, str: String?, onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>?) {
+    fun reqSignInAccount(
+        context: Context,
+        z: Boolean,
+        str: String?,
+        onreqaccountcallback: AccountNameTask.onReqAccountCallback<SignInAccount?>?
+    ) {
         initContextIfNeeded(context)
         if (onreqaccountcallback != null) {
             onreqaccountcallback.onReqStart()
             onreqaccountcallback.onReqLoading()
         }
         reqReSignin(context, HandlerC0855d(this, context, z, onreqaccountcallback), str)
-    }
-
-    // com.heytap.usercenter.accountsdk.AccountAgentInterface
-    fun reqToken(context: Context, handler: Handler?, str: String?) {
-        initContextIfNeeded(context)
-        if (!isSingleUserVersion(context)) {
-            mLocalReqHandlerRef = null
-            if (!isSingleUserVersion(context)) {
-                AccountAgent.m6149a()
-            }
-            AccountAgent.m6150a(context, handler, str)
-        } else if (!isLogin(context, str)) {
-            try {
-                mLocalReqHandlerRef = handler
-                AccountHelper.startReqTokenActivity(context, str, false)
-            } catch (unused: ActivityNotFoundException) {
-                sendUserMessage(handler, UserEntity(Constants.REQ_USERCENTER_NOT_EXIST, "usercenter is not exist!", "", ""))
-            }
-        } else if (isVersionUpV320(context)) {
-            AccountAgentV320.m4618a(context, handler)
-        } else {
-            sendLoginSuccessMessage(handler, context)
-        }
     }
 
     // com.heytap.usercenter.accountsdk.AccountAgentInterface
@@ -279,6 +284,23 @@ class AccountAgent : IAccountAgent {
     companion object {
         const val SIGNINACCOUNT_EXPIRATIONTIME: Long = 600000
         var mVersionCode = -1
+        var mLocalReqHandlerRef: Handler? = null
+
+        private var f6886a: CallInfoAgent? = null
+
+        fun isLogin(context: Context, str: String?): Boolean {
+            initContextIfNeeded(context)
+            if (!isSingleUserVersion(context)) {
+                return AccountAgent.m6152a(context, str)
+            }
+            if (isVersionUpV320(context)) {
+                return AccountAgentV320.m4619a(AccountAgentV320.m4617a(context))
+            }
+            val userEntity = AccountPrefUtils.getUserEntity(context, null)
+            return userEntity != null && !TextUtils.isEmpty(userEntity.mo6986b()) && !TextUtils.isEmpty(
+                userEntity.mo6983a()
+            ) && userEntity.mo6988c() == 30001001
+        }
 
         fun getUserCenterVersionCode(context: Context): Int {
             val a = m6318a(context, XORUtils.hash("kge&`mq|ix&}{mzkmf|mz"))
@@ -319,6 +341,35 @@ class AccountAgent : IAccountAgent {
             return if (AccountAgentV320.m4619a(a)) a?.f4556b ?: "" else ""
         }
 
+        fun reqToken(context: Context, handler: Handler, str: String) {
+            initContextIfNeeded(context)
+            if (!isSingleUserVersion(context)) {
+                mLocalReqHandlerRef = null
+                if (!isSingleUserVersion(context)) {
+                    resetCallInfoAgent()
+                }
+                AccountAgent.m6150a(context, handler, str)
+            } else if (!isLogin(context, str)) {
+                try {
+                    mLocalReqHandlerRef = handler
+                    AccountHelper.startReqTokenActivity(context, str, false)
+                } catch (unused: ActivityNotFoundException) {
+                    sendUserMessage(
+                        handler, UserEntity(
+                            Constants.REQ_USERCENTER_NOT_EXIST,
+                            "usercenter is not exist!",
+                            "",
+                            ""
+                        )
+                    )
+                }
+            } else if (isVersionUpV320(context)) {
+                AccountAgentV320.m4618a(context, handler)
+            } else {
+                sendLoginSuccessMessage(handler, context)
+            }
+        }
+
         fun m6154b(context: Context, str: String?): String {
             if (m6153b(context) >= 230) {
                 return AuthTokenProvider.m6163a(context, str)
@@ -329,6 +380,65 @@ class AccountAgent : IAccountAgent {
             return if (m6160e(context)) {
                 AuthTokenProvider.m6166c(context)
             } else ""
+        }
+
+        fun resetCallInfoAgent() {
+            f6886a = null
+        }
+
+        fun m6150a(context: Context, handler: Handler, str: String) {
+            if (!m6159d(context!!)) {
+                m6151a(handler)
+            } else if (m6153b(context) >= 230) {
+                getCallInfoAgent(context).mo6893a(handler, str)
+            } else if (m6159d(context)) {
+                getCallInfoAgent(context).mo6892a(handler)
+            } else {
+                m6151a(handler)
+            }
+        }
+
+        private fun sendUserMessage(handler: Handler?, userEntity: UserEntity) {
+            if (handler != null) {
+                val message = Message()
+                message.obj = userEntity
+                handler.sendMessage(message)
+                mLocalReqHandlerRef = null
+            }
+        }
+
+        private fun m6151a(handler: Handler) {
+            val message = Message()
+            message.obj = UserEntity(
+                Constants.REQ_NONE_ACCOUNT,
+                "Account number is zero!",
+                "",
+                ""
+            )
+            handler.sendMessage(message)
+        }
+
+        private fun sendLoginSuccessMessage(handler: Handler?, context: Context) {
+            if (handler != null) {
+                if (isVersionUpV320(context)) {
+                    AccountAgentV320.m4618a(context, handler)
+                    return
+                }
+                val message = Message()
+                message.obj = AccountPrefUtils.getUserEntity(context, null)
+                handler.sendMessage(message)
+            }
+        }
+
+        private fun getCallInfoAgent(context: Context): CallInfoAgent {
+            if (f6886a == null) {
+                synchronized(this) {
+                    if (f6886a == null) {
+                        f6886a = CallInfoAgent(context)
+                    }
+                }
+            }
+            return f6886a!!
         }
 
         private fun m6153b(context: Context): Int {
@@ -351,6 +461,29 @@ class AccountAgent : IAccountAgent {
                 0
             }
             return !(i >= 130 || i <= 110)
+        }
+
+        fun m6152a(context: Context, str: String?): Boolean {
+            if (m6153b(context) < 230) {
+                return m6161f(context)
+            }
+            if (!m6169e(context) || !m6167c(context, str)) {
+                val a = m6163a(context, str)
+                return a != "release"
+            }
+            val intent = Intent(m6288a("kge&gxxg&{mz~akm&ikkg}f|&}xli|mikkg}f|afngzmkma~mz"))
+            intent.putExtra("AppCode", str)
+            context.sendBroadcast(intent)
+            return true
+        }
+
+        private fun m6161f(context: Context): Boolean {
+            val c = ""
+            if (!m6159d(context)) {
+                return m6160e(context) && c != "0" && c != "debug"
+            }
+            val a = m6162a(context)
+            return a != "debug"
         }
     }
 }

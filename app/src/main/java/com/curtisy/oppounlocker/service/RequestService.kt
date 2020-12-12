@@ -19,18 +19,18 @@ import java.nio.charset.Charset
 
 
 class RequestService : Service() {
-    private lateinit var f6809c: HandlerThread
-    private lateinit var f6810d: Handler
+    private lateinit var handlerThread: HandlerThread
+    private lateinit var handler: Handler
     private lateinit var requestUrl: String
 
-    var f6811e: Messenger? = null
+    var messenger: Messenger? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
     override fun onCreate() {
-        f6807a = this
+        internalContext = this
         context = applicationContext
         val applicationContext = applicationContext
         try {
@@ -39,10 +39,10 @@ class RequestService : Service() {
             e.printStackTrace()
         }
         AesEncryptUtils.m6015a()
-        f6809c = HandlerThread("Request")
-        f6809c.start()
-        if (f6809c.looper != null) {
-            f6810d = ServiceHandler(this, f6809c.looper)
+        handlerThread = HandlerThread("Request")
+        handlerThread.start()
+        if (handlerThread.looper != null) {
+            handler = ServiceHandler(this, handlerThread.looper)
         } else {
             stopSelf()
         }
@@ -53,7 +53,7 @@ class RequestService : Service() {
         if (intent == null || intent.extras == null) {
             return super.onStartCommand(intent, i, i2)
         }
-        f6811e = intent.extras!!["Messenger"] as Messenger?
+        messenger = intent.extras!!["Messenger"] as Messenger?
         requestUrl = "https://ilk.apps.coloros.com/api/v2/"
         when (intent.extras!!["MessengerFlag"] as Int?) {
             1000 -> requestUrl += "apply-unlock"
@@ -62,19 +62,19 @@ class RequestService : Service() {
             1003 -> requestUrl += "get-all-status"
             1004 -> requestUrl += "lock-client"
         }
-        f6810d.sendEmptyMessage(0)
+        handler.sendEmptyMessage(0)
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        f6809c.quit()
+        handlerThread.quit()
     }
 
     /* renamed from: a */
-    fun mo6779a(): UnlockStatus? {
+    fun getUnlockStatus(): UnlockStatus? {
         val bVar = C1234b()
-        bVar.mo6785a(f6807a)
+        bVar.mo6785a(internalContext)
         return try {
             Gson().fromJson(decryptJsonFromServer(Gson().toJson(bVar)), UnlockStatus::class.java)
         } catch (e: Exception) {
@@ -101,10 +101,7 @@ class RequestService : Service() {
     }
 
     companion object {
-        /* renamed from: a */
-        private var f6807a: Context? = null
-
-        /* renamed from: b */
+        private var internalContext: Context? = null
         lateinit var context: Context
     }
 }

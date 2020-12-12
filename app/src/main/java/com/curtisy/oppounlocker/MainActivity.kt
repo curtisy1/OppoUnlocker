@@ -1,8 +1,8 @@
 package com.curtisy.oppounlocker
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.curtisy.oppounlocker.utilities.AesEncryptUtils
 import java.util.*
 
@@ -20,5 +20,9 @@ class MainActivity : AppCompatActivity() {
         otaVersionValue.text = "PDEM10_11.A.17_0470_202009091604"
         languageValue.text = Locale.getDefault().toLanguageTag()
         keyValue.text = AesEncryptUtils.m6011a(this)
+    }
+
+    companion object {
+        var f6768j = false
     }
 }

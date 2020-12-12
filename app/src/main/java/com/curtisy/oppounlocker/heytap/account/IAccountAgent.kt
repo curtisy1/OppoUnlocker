@@ -15,7 +15,6 @@ interface IAccountAgent {
     @Deprecated("")
     fun getUserName(context: Context?, str: String?): String?
     fun hasUserCenterApp(context: Context?): Boolean
-    fun isLogin(context: Context?, str: String?): Boolean
     fun isVersionUpV320(context: Context?): Boolean
     fun reqLogout(context: Context?)
     fun reqReSignin(context: Context?, handler: Handler?, str: String?)
